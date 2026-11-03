@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "GBK text decoding",
+    "description": "Reads and previews GBK/GB18030 text files instead of refusing them as non-UTF-8. GB18030 only by default, so other encodings are never shown as plausible-looking mojibake."
+  }
+}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="GBK text decoding">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2f6feb"/>
+      <stop offset="1" stop-color="#7b3ff2"/>
+    </linearGradient>
+  </defs>
+  <rect x="3" y="3" width="58" height="58" rx="14" fill="url(#g)"/>
+  <rect x="14" y="13" width="36" height="38" rx="5" fill="#ffffff" opacity="0.95"/>
+  <rect x="20" y="21" width="18" height="3.4" rx="1.7" fill="#2f6feb"/>
+  <rect x="20" y="28" width="24" height="3.4" rx="1.7" fill="#2f6feb" opacity="0.75"/>
+  <rect x="20" y="35" width="21" height="3.4" rx="1.7" fill="#2f6feb" opacity="0.55"/>
+  <text x="32" y="51" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" font-weight="700" text-anchor="middle" fill="#7b3ff2">GBK</text>
+</svg>

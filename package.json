@@ -1,0 +1,45 @@
+{
+  "name": "dsh-gbk-text",
+  "version": "0.1.0",
+  "description": "Fix the DeepSeek Harness sidebar preview for GBK/GB18030 text: decode legacy-encoded files at the filesystem seam instead of failing with FS_NOT_TEXT.",
+  "type": "module",
+  "license": "MIT",
+  "icon": "./icon.svg",
+  "exports": {
+    ".": "./index.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "gbk",
+    "gb18030",
+    "gb2312",
+    "encoding",
+    "preview",
+    "chinese"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kirarikaryuu/dsh-gbk-text.git"
+  },
+  "homepage": "https://github.com/kirarikaryuu/dsh-gbk-text#readme",
+  "bugs": {
+    "url": "https://github.com/kirarikaryuu/dsh-gbk-text/issues"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

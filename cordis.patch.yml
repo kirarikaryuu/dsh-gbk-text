@@ -1,0 +1,9 @@
+# dsh-gbk-text bundle patch: mount the host-plane decoder.
+#
+# The plugin wraps the composed `fs` service's readText/streamText so a file
+# that the UTF-8-only backend refuses with FS_NOT_TEXT is decoded with
+# GB18030/GBK (then Big5, Shift-JIS, EUC-KR, windows-1251/1252) instead.
+# UTF-8 files never reach the fallback: the original read is tried first.
+- insert:
+    - id: dsh-gbk-text
+      name: dsh-gbk-text
