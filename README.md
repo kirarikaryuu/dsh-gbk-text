@@ -127,7 +127,7 @@ node test/verify.mjs   # 19 项检查，零依赖
 
 ## 参考与致谢
 
-设计与文档结构参考了下列项目；**没有复制任何代码**，实现为本仓库原创：
+设计与文档结构参考了下列项目：
 
 - [MrWeiCodes/dsh-fs-encoding](https://github.com/MrWeiCodes/dsh-fs-encoding) —— 其 README 对「DSH 文件系统缝只认 UTF-8」的分析是定位本问题的关键线索；`excludeEncodings` 的配置语义（只排除、不冻结清单）直接沿用；「宁可失败，不可猜错」的默认取舍也来自它的判断。
 - [ax2/dsh-win-native](https://github.com/ax2/dsh-win-native) —— 「只读承诺」表格的写法。
