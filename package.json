@@ -1,6 +1,6 @@
 {
   "name": "dsh-gbk-text",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Fix the DeepSeek Harness sidebar preview for GBK/GB18030 text: decode legacy-encoded files at the filesystem seam instead of failing with FS_NOT_TEXT.",
   "type": "module",
   "license": "MIT",

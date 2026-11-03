@@ -102,6 +102,14 @@ check('wrapper still refuses binary', refused);
 const big5Fs = mount(bytes(BIG5_BYTES), { encodings: ['big5'] });
 check('wrapper honours config.encodings', (await big5Fs.readText({})) === BIG5_TEXT);
 
+const excludedFs = mount(bytes(GBK_BYTES), { excludeEncodings: ['gb18030'] });
+let excludedRefused = false;
+try { await excludedFs.readText({}); } catch (error) { excludedRefused = error.code === 'FS_NOT_TEXT'; }
+check('excludeEncodings can turn the fallback off', excludedRefused);
+
+const overrideFs = mount(bytes(BIG5_BYTES), { encodings: ['big5'], excludeEncodings: ['big5'] });
+check('excludeEncodings is ignored when encodings is set', (await overrideFs.readText({})) === BIG5_TEXT);
+
 for (const fn of disposers) {
   const dispose = fn();
   if (typeof dispose === 'function') dispose();

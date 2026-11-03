@@ -50,11 +50,21 @@ const DEFAULT_ENCODINGS = ['gb18030'];
  * Read the configured fallback list, keeping only encodings the runtime's
  * TextDecoder actually supports so a bad row cannot break every text read.
  *
+ * `encodings` REPLACES the default list. `excludeEncodings` REMOVES entries
+ * from the default list and is ignored when `encodings` is set — the semantics
+ * dsh-fs-encoding uses (see README "Prior art"), so a future default encoding
+ * still reaches users who only dropped one they never want.
+ *
  * @param config - the plugin row's config, when one was supplied.
- * @returns the encodings to try after UTF-8, in order.
+ * @returns the encodings to try after UTF-8, in order; empty means "no
+ *   fallback", which leaves the backend's UTF-8 refusal in place.
  */
 function resolveEncodings(config) {
-  const requested = Array.isArray(config?.encodings) ? config.encodings : DEFAULT_ENCODINGS;
+  const explicit = Array.isArray(config?.encodings) ? config.encodings : undefined;
+  const excluded = new Set((Array.isArray(config?.excludeEncodings) ? config.excludeEncodings : [])
+    .filter((encoding) => typeof encoding === 'string')
+    .map((encoding) => encoding.toLowerCase()));
+  const requested = explicit ?? DEFAULT_ENCODINGS.filter((encoding) => !excluded.has(encoding.toLowerCase()));
   const usable = [];
   for (const encoding of requested) {
     if (typeof encoding !== 'string' || encoding.length === 0) continue;
@@ -65,7 +75,10 @@ function resolveEncodings(config) {
       // Unsupported encoding name: skip it rather than failing the whole plugin.
     }
   }
-  return usable.length > 0 ? usable : DEFAULT_ENCODINGS;
+  if (usable.length > 0) return usable;
+  // An explicit list that named nothing usable is a typo: keep the default.
+  // Exclusions that emptied the default are intentional: no fallback at all.
+  return explicit === undefined ? [] : DEFAULT_ENCODINGS;
 }
 
 /** Strict UTF-8 decoder: rejects rather than substituting U+FFFD. */
@@ -144,6 +157,8 @@ export function apply(ctx, config) {
   if (fs[PATCHED]) return;
 
   const encodings = resolveEncodings(config);
+  // Every fallback was excluded: leave the original UTF-8 refusal untouched.
+  if (encodings.length === 0) return;
   const readText = fs.readText.bind(fs);
   const streamText = fs.streamText.bind(fs);
   const readBytes = fs.readBytes.bind(fs);
